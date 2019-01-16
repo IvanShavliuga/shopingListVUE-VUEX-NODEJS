@@ -1,17 +1,24 @@
 <template>
-<li :class="{'removed': item.checked}">
+  <li :class="{ 'removed': item.checked }">
     <div class="checkbox">
-        <label>
-            <input type="checkbox" v-model="item.checked">{{item.text}}
-        </label>
+      <label>
+        <input type="checkbox" v-model="item.checked"> {{ item.text }}
+      </label>
     </div>
-</li>
+  </li>
 </template>
 
 <script>
-export default {
-  props: ["item"]
-};
+  import { mapActions } from 'vuex'
+  export default {
+    props: ['item', 'id'],
+    methods: mapActions(['updateList']),
+    watch: {
+      'item.checked': function () {
+        this.updateList(this.id)
+      }
+    }
+  }
 </script>
 
 <style scoped>

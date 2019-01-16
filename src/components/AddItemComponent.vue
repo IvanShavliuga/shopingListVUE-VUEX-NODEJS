@@ -1,14 +1,21 @@
 <template>
   <div class="input-group">
-      <input type="text" @keyup.enter="addItem" v-model="newItem" placeholder="add un item a lista" class="form-control">
-      <span class="input-group-btn">
-          <button @click="addItem" type="button" class="btn btn-default">Add!</button>
-      </span>
+    <input
+      type="text"
+      @keyup.enter="addItem"
+      v-model="newItem"
+      placeholder="add shopping list item"
+      class="form-control"
+    >
+    <span class="input-group-btn">
+      <button @click="addItem" class="btn btn-default" type="button">Add!</button>
+    </span>
   </div>
 </template>
 
 <script>
 export default {
+  props: ["id"],
   data() {
     return {
       newItem: ""
@@ -21,11 +28,12 @@ export default {
       if (text) {
         this.$emit("add", this.newItem);
         this.newItem = "";
+        this.$store.dispatch("updateList", this.id);
       }
     }
   }
 };
 </script>
 
-<style>
+<style scoped>
 </style>

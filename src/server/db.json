@@ -1,8 +1,13 @@
 {
   "shoppinglists": [
     {
-      "title": "new",
-      "items": [],
+      "title": "Lista 1",
+      "items": [
+        {
+          "text": "Item 1",
+          "checked": false
+        }
+      ],
       "id": 1
     }
   ]
