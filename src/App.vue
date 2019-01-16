@@ -1,28 +1,42 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="container-fluid my-0">
+    <ul class="nav nav-tabs" role="tablist">
+      <li
+        :class="index===0 ? 'active':''"
+        v-for="(list,index) in shoppinglists"
+        :key="list.id"
+        role="presentation"
+      >
+        <shopping-list-title-component :id="list.id" :title="list.title"></shopping-list-title-component>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div
+        :class="index===0 ?'active':''"
+        v-for="(list,index) in shoppinglists"
+        :key="list.id"
+        class="tab-pane"
+        role="tabpanel"
+        :id="list.id"
+      >
+        <shopping-list-component :id="list.id" :title="list.title" :items="list.items"></shopping-list-component>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+//! Depronto pone problemas el item.id por que se repite.
+import ShoppingListComponent from "./components/ShoppingListComponent";
+import ShoppingListTitleComponent from "./components/ShoppingListTitleComponent";
+import store from "./vuex/store.js";
+import { mapGetters } from "vuex";
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
+  name: "app",
+  components: { ShoppingListComponent, ShoppingListTitleComponent },
+  computed: mapGetters({
+    shoppinglists: "getLists"
+  }),
+  store
+};
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
